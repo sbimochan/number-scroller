@@ -1,6 +1,6 @@
 import React from 'react';
 
-class AnimateNumbers extends React.Component {
+class NumberScroller extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,4 +30,4 @@ class AnimateNumbers extends React.Component {
   }
 }
 
-export default AnimateNumbers;
+export default NumberScroller;

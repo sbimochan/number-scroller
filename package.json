@@ -1,5 +1,5 @@
 {
-  "name": "react-animate-number",
+  "name": "number-scroller",
   "version": "1.0.0",
   "description": "A very simple light weight react-component that animates your numbers.",
   "main": "build/index.js",
