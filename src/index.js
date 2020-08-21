@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
 
 class NumberScroller extends React.Component {
   constructor(props) {
     super(props);
+    const RADIX = 10;
     this.state = {
-      finalNumber: parseInt(props.to) || null,
-      initialNumber: parseInt(props.from) || null,
-      delay: parseInt(props.delay) || 25,
+      finalNumber: parseInt(props.to, RADIX) || 0,
+      initialNumber: parseInt(props.from, RADIX) || 0,
+      delay: parseInt(props.delay, RADIX) || 25
     };
   }
 
@@ -19,7 +20,7 @@ class NumberScroller extends React.Component {
         this.runEngine();
       }, this.state.delay);
     }
-  };
+  }
 
   componentDidMount() {
     this.runEngine();
