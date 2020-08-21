@@ -1,4 +1,4 @@
-# react-animate-number
+# number-scroller
 
 A very simple light weight react-component that animates your numbers.
 
