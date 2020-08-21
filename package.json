@@ -38,6 +38,5 @@
   "bugs": {
     "url": "https://github.com/sbimochan/number-scroller/issues"
   },
-  "homepage": "https://github.com/sbimochan/number-scroller#readme",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  "homepage": "https://github.com/sbimochan/number-scroller#readme"
 }
