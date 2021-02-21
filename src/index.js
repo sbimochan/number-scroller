@@ -1,28 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
-export default NumberScroller = ({ to, from, delay, fallback }) => {
-	const [finalNumber, setFinalNumber] = useState(parseInt(to, RADIX) || 0);
-	const [initialNumber, setInitialNumber] = useState(parseInt(from, RADIX) || 0);
-	const [delay, setDelay] = useState(parseInt(delay, RADIX) || 25);
+const NumberScroller = ({
+  delay,
+  from = 0,
+  localeStringProps,
+  timeout = 1000,
+  to,
+}) => {
+  let [currentNumber, setCurrentNumber] = useState(from);
+  const initialDifference = useRef(0);
 
-  useEffect = (() => {
+  useEffect(() => {
+    const runEngine = () => {
+      if (currentNumber !== to) {
+        setTimeout(() => {
+          setCurrentNumber(
+            currentNumber < to ? ++currentNumber : --currentNumber
+          );
+          runEngine();
+        }, delay || timeout / initialDifference.current);
+      }
+    };
+
+    initialDifference.current = Math.abs(currentNumber - to);
     runEngine();
-  },[to]);
-  
-	const runEngine = () => {
-		if (initialNumber < finalNumber) {
-			setTimeout(() => {
-        setInitialNumber(initialNumber++)
-				runEngine();
-			}, delay);
-		}
-	};
+  }, [to]);
 
-	return (
-    if (!fallback) {
-      return initialNumber;
-    }
-
-    return initialNumber > 0 ? initialNumber : fallback;
+  return (
+    <>
+      {!localeStringProps
+        ? currentNumber
+        : currentNumber.toLocaleString(...localeStringProps)}
+    </>
   );
 };
+
+export default NumberScroller;
