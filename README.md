@@ -12,7 +12,7 @@ A very simple light weight react-component that animates your numbers.
 
 ```javascript
 import React, { useState } from "react";
-import NumberScroller from "number-scroller";
+import NumberScroller from "react-number-scroller";
 
 const MyNumberComponent = () => {
   const [number, setNumber] = useState(100);
@@ -24,16 +24,16 @@ const MyNumberComponent = () => {
 };
 ```
 
-### Optionally, you can set the delay interval manually (milliseconds between each render)
+### Optionally, you can set the render interval manually (milliseconds between each render)
 
 ```javascript
 import Reactfrom "react";
-import NumberScroller from "number-scroller";
+import NumberScroller from "react-number-scroller";
 
 const MyCustomDelayComponent = () => {
   return (
     <p>
-      <NumberScroller to={100} delay={25} />
+      <NumberScroller to={100} renderFrequency={25} />
     </p>
   );
 };
@@ -43,7 +43,7 @@ const MyCustomDelayComponent = () => {
 
 ```javascript
 import React from "react";
-import NumberScroller from "number-scroller";
+import NumberScroller from "react-number-scroller";
 
 const MyCustomDelayComponent = () => {
   return (
@@ -58,7 +58,7 @@ const MyCustomDelayComponent = () => {
 
 ```javascript
 import React from "react";
-import NumberScroller from "number-scroller";
+import NumberScroller from "react-number-scroller";
 
 const MyCurrencyComponent = () => {
   return (
