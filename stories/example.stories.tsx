@@ -34,6 +34,9 @@ CountSlow.args = { to: 100, timeout: 10000 };
 export const CustomIncrement = Template.bind({});
 CustomIncrement.args = { to: 10, step: 0.88 };
 
+export const CustomIncrementDecimalPlaces = Template.bind({});
+CustomIncrementDecimalPlaces.args = { to: 10, step: 0.27, decimalPlaces: 1 };
+
 export const ToLocaleString = Template.bind({});
 ToLocaleString.args = {
   to: 100,

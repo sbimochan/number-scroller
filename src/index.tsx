@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef, FC } from 'react';
 
 export interface NumberScrollerProps {
   /**
+   * gets passed to toFixed()
+   */
+  decimalPlaces?: number;
+  /**
    * Time in milliseconds to delay the start of the number scroll
    */
   delay?: number;
@@ -36,6 +40,7 @@ export interface NumberScrollerProps {
 }
 
 export const NumberScroller: FC<NumberScrollerProps> = ({
+  decimalPlaces,
   delay = 0,
   renderFrequency,
   fallback = 0,
@@ -75,9 +80,11 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
 
   return (
     <>
-      {!toLocaleStringProps
-        ? newNumber
-        : newNumber.toLocaleString(...toLocaleStringProps)}
+      {toLocaleStringProps
+        ? newNumber.toLocaleString(...toLocaleStringProps)
+        : decimalPlaces
+        ? newNumber.toFixed(decimalPlaces)
+        : newNumber}
     </>
   );
 };
