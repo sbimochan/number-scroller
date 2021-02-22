@@ -4,7 +4,7 @@ A very simple light weight react-component that animates your numbers.
 
 ## Installation
 
-` yarn add react-number-scroller`
+` yarn add number-scroller`
 
 ## Usage
 
