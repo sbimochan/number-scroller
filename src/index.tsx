@@ -16,7 +16,7 @@ export interface NumberScrollerProps {
   /**
    * provide options for converting number to a localized string (such as currency)
    */
-  localeStringProps?: [string, any];
+  toLocaleStringProps?: [string, any];
   /**
    * Instead of a timeout, specify the exact number of milliseconds between each scroll
    */
@@ -40,8 +40,8 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   renderFrequency,
   fallback = 0,
   from = 0,
-  localeStringProps,
-  step = 3,
+  toLocaleStringProps,
+  step = 1,
   timeout = 1000,
   to,
 }) => {
@@ -54,8 +54,14 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
         setTimeout(() => {
           setCurrentNumber(
             currentNumber < (to ?? 0)
-              ? (currentNumber += Math.abs(step))
-              : (currentNumber -= Math.abs(step))
+              ? (currentNumber += Math.min(
+                  Math.abs(step),
+                  (to ?? 0) - currentNumber
+                ))
+              : (currentNumber -= Math.min(
+                  Math.abs(step),
+                  (to ?? 0) + currentNumber
+                ))
           );
           runEngine();
         }, renderFrequency || timeout / initialDifference.current || 1);
@@ -69,9 +75,9 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
 
   return (
     <>
-      {!localeStringProps
+      {!toLocaleStringProps
         ? newNumber
-        : newNumber.toLocaleString(...localeStringProps)}
+        : newNumber.toLocaleString(...toLocaleStringProps)}
     </>
   );
 };
