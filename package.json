@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "name": "react-number-scroller",
   "description": "A lightweight react-component that animates your numbers.",
@@ -80,7 +80,5 @@
   "peerDependencies": {
     "react": ">=16"
   },
-  "dependencies": {
-   
-  }
+  "dependencies": {}
 }
