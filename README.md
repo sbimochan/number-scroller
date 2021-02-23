@@ -1,4 +1,4 @@
-# react-number-scroller
+# number-scroller
 
 A very simple light weight react-component that animates your number updates.
 
@@ -6,11 +6,11 @@ A very simple light weight react-component that animates your number updates.
 
 ## Installation
 
-`yarn add react-number-scroller`
+`yarn add number-scroller`
 
 ## See Prop Table and Storybook Examples Here!
 
-https://kevinvandy.github.io/react-number-scroller/?path=/docs/
+https://sbimochan.github.io/number-scroller/?path=/docs/
 
 ## Examples
 
@@ -18,7 +18,7 @@ https://kevinvandy.github.io/react-number-scroller/?path=/docs/
 
 ```javascript
 import React, { useState } from 'react';
-import NumberScroller from 'react-number-scroller';
+import NumberScroller from 'number-scroller';
 
 const MyNumber = () => {
   const [number, setNumber] = useState(100);
@@ -34,7 +34,7 @@ const MyNumber = () => {
 
 ```javascript
 import Reactfrom "react";
-import NumberScroller from "react-number-scroller";
+import NumberScroller from "number-scroller";
 
 const MyNumber = () => {
   return (
@@ -49,7 +49,7 @@ const MyNumber = () => {
 
 ```javascript
 import React from 'react';
-import NumberScroller from 'react-number-scroller';
+import NumberScroller from 'number-scroller';
 
 const MyNumber = () => {
   return (
@@ -64,7 +64,7 @@ const MyNumber = () => {
 
 ```javascript
 import React from 'react';
-import NumberScroller from 'react-number-scroller';
+import NumberScroller from 'number-scroller';
 
 const MyNumber = () => {
   return (
@@ -82,7 +82,7 @@ const MyNumber = () => {
 
 ```javascript
 import React from 'react';
-import NumberScroller from 'react-number-scroller';
+import NumberScroller from 'number-scroller';
 
 const MyCurrencyComponent = () => {
   return (

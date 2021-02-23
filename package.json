@@ -1,12 +1,13 @@
 {
-  "version": "0.2.0",
+  "version": "3.0.0",
   "license": "MIT",
-  "name": "react-number-scroller",
+  "name": "number-scroller",
   "description": "A lightweight react-component that animates your numbers.",
-  "author": "Kevin Vandy",
+  "author": "Bimochan Shrestha",
+  "contributors": ["Kevin Vandy"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/KevinVandy/react-number-scroller.git"
+    "url": "git://github.com/sbimochan/number-scroller.git"
   },
   "keywords": [
     "react",
@@ -14,9 +15,9 @@
     "number-animator"
   ],
   "bugs": {
-    "url": "https://github.com/KevinVandy/react-number-scroller/issues"
+    "url": "https://github.com/sbimochan/number-scroller/issues"
   },
-  "homepage": "https://github.com/KevinVandy/react-number-scroller#readme",
+  "homepage": "https://github.com/sbimochan/number-scroller#readme",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -37,14 +38,14 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -o docs-build"
   },
-  "module": "dist/react-number-scroller.esm.js",
+  "module": "dist/number-scroller.esm.js",
   "size-limit": [
     {
-      "path": "dist/react-number-scroller.cjs.production.min.js",
+      "path": "dist/number-scroller.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/react-number-scroller.esm.js",
+      "path": "dist/number-scroller.esm.js",
       "limit": "10 KB"
     }
   ],
