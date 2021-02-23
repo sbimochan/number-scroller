@@ -1,10 +1,12 @@
 {
-  "version": "3.0.0",
+  "version": "3.0.1",
   "license": "MIT",
   "name": "number-scroller",
   "description": "A lightweight react-component that animates your numbers.",
   "author": "Bimochan Shrestha",
-  "contributors": ["Kevin Vandy"],
+  "contributors": [
+    "Kevin Vandy"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/sbimochan/number-scroller.git"
@@ -69,6 +71,7 @@
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "babel-loader": "^8.2.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^5.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

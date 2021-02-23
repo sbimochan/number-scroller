@@ -3,7 +3,7 @@ import { getRoundedFloatWithPrecision } from './utils';
 
 export interface NumberScrollerProps {
   /**
-   * gets passed to toFixed()
+   * calculates decimal
    */
   decimalPlaces?: number;
   /**
@@ -51,10 +51,10 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   timeout = 1000,
   to,
 }) => {
-  let [currentNumber, setCurrentNumber] = useState(from);
+  const [currentNumber, setCurrentNumber] = useState(from);
   const initialDifference = useRef(0);
 
-  const changeValue = (oldValue) => {
+  const changeValue = (oldValue: number) => {
     if (oldValue < (to ?? 0)) {
       return (oldValue += Math.min(Math.abs(step), (to ?? 0) - oldValue));
     } else {
@@ -63,8 +63,8 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   };
 
   useEffect(() => {
-    if (isNaN(to)) {
-      to = 0;
+    if (!to || isNaN(to)) {
+      setCurrentNumber(0);
       return;
     }
     const runEngine = () => {
