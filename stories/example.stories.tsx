@@ -26,7 +26,7 @@ export const BasicCountDown = Template.bind({});
 BasicCountDown.args = { from: 100, to: 0 };
 
 export const DelayedReaction = Template.bind({});
-DelayedReaction.args = { to: 100, delay: 3000 };
+DelayedReaction.args = { to: 100, delay: 2000 };
 
 export const CountSlow = Template.bind({});
 CountSlow.args = { to: 100, timeout: 10000 };
@@ -36,6 +36,12 @@ CustomIncrement.args = { to: 10, step: 0.88 };
 
 export const CustomIncrementDecimalPlaces = Template.bind({});
 CustomIncrementDecimalPlaces.args = { to: 10, step: 0.27, decimalPlaces: 1 };
+
+export const HandleNaN = Template.bind({});
+HandleNaN.args = { to: NaN };
+
+export const HandleStrings = Template.bind({});
+HandleStrings.args = { to: 'strings' };
 
 export const ToLocaleString = Template.bind({});
 ToLocaleString.args = {
