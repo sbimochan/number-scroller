@@ -1,20 +1,26 @@
 # react-number-scroller
 
-A very simple light weight react-component that animates your numbers.
+A very simple light weight react-component that animates your number updates.
+
+![Scrolling Number](https://media.giphy.com/media/XZ02rGDvGc8bk9x8rq/giphy.gif)
 
 ## Installation
 
-` yarn add react-number-scroller`
+`yarn add react-number-scroller`
 
-## Usage
+## See Prop Table and Storybook Examples Here!
+
+https://kevinvandy.github.io/react-number-scroller/?path=/docs/
+
+## Examples
 
 ### Simply supply a 'to' prop and it will scroll to that number (By default, it takes 1 second to reach the new value)
 
 ```javascript
-import React, { useState } from "react";
-import NumberScroller from "react-number-scroller";
+import React, { useState } from 'react';
+import NumberScroller from 'react-number-scroller';
 
-const MyNumberComponent = () => {
+const MyNumber = () => {
   const [number, setNumber] = useState(100);
   return (
     <p>
@@ -30,7 +36,7 @@ const MyNumberComponent = () => {
 import Reactfrom "react";
 import NumberScroller from "react-number-scroller";
 
-const MyCustomDelayComponent = () => {
+const MyNumber = () => {
   return (
     <p>
       <NumberScroller to={100} renderFrequency={25} />
@@ -42,10 +48,10 @@ const MyCustomDelayComponent = () => {
 ### Optionally, Customize the starting value with the 'from' prop (defaults from 0)
 
 ```javascript
-import React from "react";
-import NumberScroller from "react-number-scroller";
+import React from 'react';
+import NumberScroller from 'react-number-scroller';
 
-const MyCustomDelayComponent = () => {
+const MyNumber = () => {
   return (
     <p>
       <NumberScroller from={100} to={20} />
@@ -54,11 +60,29 @@ const MyCustomDelayComponent = () => {
 };
 ```
 
+### Format the number with set number of decimals
+
+```javascript
+import React from 'react';
+import NumberScroller from 'react-number-scroller';
+
+const MyNumber = () => {
+  return (
+    <p>
+      <NumberScroller
+        to={100}
+        decimalPlaces={2}
+      />
+    </p>
+  );
+};
+```
+
 ### Format the number to a locale string such as currency
 
 ```javascript
-import React from "react";
-import NumberScroller from "react-number-scroller";
+import React from 'react';
+import NumberScroller from 'react-number-scroller';
 
 const MyCurrencyComponent = () => {
   return (
@@ -66,10 +90,10 @@ const MyCurrencyComponent = () => {
       <NumberScroller
         to={100}
         localeStringProps={[
-          "en-US",
+          'en-US',
           {
-            style: "currency",
-            currency: "USD",
+            style: 'currency',
+            currency: 'USD',
           },
         ]}
       />
