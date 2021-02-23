@@ -51,27 +51,28 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   timeout = 1000,
   to,
 }) => {
-  const [currentNumber, setCurrentNumber] = useState(from);
+  let [currentNumber, setCurrentNumber] = useState(from);
   const initialDifference = useRef(0);
 
-  const changeValue = (oldValue: number) => {
-    if (oldValue < (to ?? 0)) {
-      return (oldValue += Math.min(Math.abs(step), (to ?? 0) - oldValue));
+  const changeValue = () => {
+    if (currentNumber < (to ?? 0)) {
+      return (currentNumber += Math.min(
+        Math.abs(step),
+        (to ?? 0) - currentNumber
+      ));
     } else {
-      return (oldValue -= Math.min(Math.abs(step), (to ?? 0) + oldValue));
+      return (currentNumber -= Math.min(
+        Math.abs(step),
+        (to ?? 0) + currentNumber
+      ));
     }
   };
-
   useEffect(() => {
-    if (!to || isNaN(to)) {
-      setCurrentNumber(0);
-      return;
-    }
     const runEngine = () => {
       if (currentNumber !== to) {
         setTimeout(() => {
-          const getChangedValue = changeValue(currentNumber);
-          setCurrentNumber(getChangedValue);
+          const changedValue = changeValue();
+          setCurrentNumber(changedValue);
           runEngine();
         }, renderFrequency || timeout / initialDifference.current || 1);
       }
@@ -80,8 +81,10 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
     setTimeout(() => runEngine(), delay);
   }, [to]);
 
-  const newNumber = currentNumber ?? fallback;
-
+  let newNumber = currentNumber ?? fallback;
+  if (Number.isNaN(newNumber)) {
+    newNumber = 0;
+  }
   return (
     <>
       {toLocaleStringProps
