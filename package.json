@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.2.0",
   "license": "MIT",
   "name": "react-number-scroller",
   "description": "A lightweight react-component that animates your numbers.",
