@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
+import { getRoundedFloatWithPrecision } from './utils';
 
 export interface NumberScrollerProps {
   /**
@@ -53,21 +54,24 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   let [currentNumber, setCurrentNumber] = useState(from);
   const initialDifference = useRef(0);
 
+  const changeValue = (oldValue) => {
+    if (oldValue < (to ?? 0)) {
+      return (oldValue += Math.min(Math.abs(step), (to ?? 0) - oldValue));
+    } else {
+      return (oldValue -= Math.min(Math.abs(step), (to ?? 0) + oldValue));
+    }
+  };
+
   useEffect(() => {
+    if (isNaN(to)) {
+      to = 0;
+      return;
+    }
     const runEngine = () => {
       if (currentNumber !== to) {
         setTimeout(() => {
-          setCurrentNumber(
-            currentNumber < (to ?? 0)
-              ? (currentNumber += Math.min(
-                  Math.abs(step),
-                  (to ?? 0) - currentNumber
-                ))
-              : (currentNumber -= Math.min(
-                  Math.abs(step),
-                  (to ?? 0) + currentNumber
-                ))
-          );
+          const getChangedValue = changeValue(currentNumber);
+          setCurrentNumber(getChangedValue);
           runEngine();
         }, renderFrequency || timeout / initialDifference.current || 1);
       }
@@ -83,7 +87,7 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
       {toLocaleStringProps
         ? newNumber.toLocaleString(...toLocaleStringProps)
         : decimalPlaces
-        ? newNumber.toFixed(decimalPlaces)
+        ? getRoundedFloatWithPrecision(newNumber, decimalPlaces)
         : newNumber}
     </>
   );
