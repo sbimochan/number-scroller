@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect, useRef, FC, ReactElement } from 'react';
 
 import { getNextStepValue, getRoundedFloatWithPrecision } from './utils';
@@ -41,6 +42,23 @@ export interface NumberScrollerProps {
   to?: number;
 }
 
+/**
+ * Number Scroller Component.
+ *
+ * @param {Object} Props {
+ *   decimalPlaces,
+ *   delay = 0,
+ *   renderFrequency,
+ *   fallback = 0,
+ *   from = 0,
+ *   toLocaleStringProps,
+ *   step = 1,
+ *   timeout = 1000,
+ *   to = 0
+ * }.
+ *
+ * @returns {ReactElement}
+ */
 export const NumberScroller: FC<NumberScrollerProps> = ({
   decimalPlaces,
   delay = 0,
@@ -56,6 +74,11 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   const [currentNumber, setCurrentNumber] = useState(from);
 
   useEffect(() => {
+    /**
+     * Get Next Step Value and Set on State on certain Interval.
+     *
+     * @param {number} currentNumber
+     */
     const runEngine = (currentNumber: number) => {
       if (currentNumber !== to) {
         setTimeout(() => {
@@ -88,6 +111,18 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
         : newNumber}
     </>
   );
+};
+
+NumberScroller.propTypes = {
+  decimalPlaces: PropTypes.number,
+  delay: PropTypes.number,
+  fallback: PropTypes.number,
+  from: PropTypes.number,
+  toLocaleStringProps: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
+  renderFrequency: PropTypes.number,
+  step: PropTypes.number,
+  timeout: PropTypes.number,
+  to: PropTypes.number
 };
 
 export default NumberScroller;
