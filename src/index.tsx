@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
+import { getRoundedFloatWithPrecision } from './utils';
 
 export interface NumberScrollerProps {
   /**
-   * gets passed to toFixed()
+   * calculates decimal
    */
   decimalPlaces?: number;
   /**
@@ -53,21 +54,25 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   let [currentNumber, setCurrentNumber] = useState(from);
   const initialDifference = useRef(0);
 
+  const changeValue = () => {
+    if (currentNumber < (to ?? 0)) {
+      return (currentNumber += Math.min(
+        Math.abs(step),
+        (to ?? 0) - currentNumber
+      ));
+    } else {
+      return (currentNumber -= Math.min(
+        Math.abs(step),
+        (to ?? 0) + currentNumber
+      ));
+    }
+  };
   useEffect(() => {
     const runEngine = () => {
       if (currentNumber !== to) {
         setTimeout(() => {
-          setCurrentNumber(
-            currentNumber < (to ?? 0)
-              ? (currentNumber += Math.min(
-                  Math.abs(step),
-                  (to ?? 0) - currentNumber
-                ))
-              : (currentNumber -= Math.min(
-                  Math.abs(step),
-                  (to ?? 0) + currentNumber
-                ))
-          );
+          const changedValue = changeValue();
+          setCurrentNumber(changedValue);
           runEngine();
         }, renderFrequency || timeout / initialDifference.current || 1);
       }
@@ -76,14 +81,16 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
     setTimeout(() => runEngine(), delay);
   }, [to]);
 
-  const newNumber = currentNumber ?? fallback;
-
+  let newNumber = currentNumber ?? fallback;
+  if (Number.isNaN(newNumber)) {
+    newNumber = 0;
+  }
   return (
     <>
       {toLocaleStringProps
         ? newNumber.toLocaleString(...toLocaleStringProps)
         : decimalPlaces
-        ? newNumber.toFixed(decimalPlaces)
+        ? getRoundedFloatWithPrecision(newNumber, decimalPlaces)
         : newNumber}
     </>
   );
