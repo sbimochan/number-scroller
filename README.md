@@ -10,7 +10,7 @@ A very simple light weight react-component that animates your number updates.
 
 ## See Prop Table and Storybook Examples Here!
 
-https://sbimochan.github.io/number-scroller/?path=/docs/
+https://number-scroller.netlify.app/
 
 ## Examples
 
@@ -69,10 +69,7 @@ import NumberScroller from 'number-scroller';
 const MyNumber = () => {
   return (
     <p>
-      <NumberScroller
-        to={100}
-        decimalPlaces={2}
-      />
+      <NumberScroller to={100} decimalPlaces={2} />
     </p>
   );
 };
@@ -93,8 +90,8 @@ const MyCurrencyComponent = () => {
           'en-US',
           {
             style: 'currency',
-            currency: 'USD',
-          },
+            currency: 'USD'
+          }
         ]}
       />
     </p>

@@ -1,11 +1,12 @@
 {
-  "version": "3.2.0",
+  "version": "3.3.0",
   "license": "MIT",
   "name": "number-scroller",
   "description": "A lightweight react-component that animates your numbers.",
   "author": "Bimochan Shrestha",
   "contributors": [
-    "Kevin Vandy", "Biplap Bhattarai"
+    "Kevin Vandy",
+    "Biplap Bhattarai"
   ],
   "repository": {
     "type": "git",
