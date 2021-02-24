@@ -1,0 +1,22 @@
+# Directory
+public/api-docs
+node_modules
+
+# Build directory
+dist
+build
+docs
+
+# Test directories
+coverage
+.nyc_output
+
+# Logs
+logs
+
+# Minified files
+**/*{.,-}min.js
+**/*{.,-}min.css
+
+# NPM files
+package.json
