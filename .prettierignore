@@ -1,0 +1,19 @@
+# Build directory
+dist
+build
+docs
+node_modules
+
+# Test directories
+coverage
+.nyc_output
+
+# Logs
+logs
+
+# Minified files
+**/*{.,-}min.js
+**/*{.,-}min.css
+
+# NPM files
+package.json
