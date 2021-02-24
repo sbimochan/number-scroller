@@ -1,42 +1,42 @@
-import React, { useState, useEffect, useRef, FC } from 'react';
+import React, { useState, useEffect, useRef, FC, ReactElement } from 'react';
 
 import { getNextStepValue, getRoundedFloatWithPrecision } from './utils';
 
 export interface NumberScrollerProps {
   /**
-   * calculates decimal
+   * Calculates decimal.
    */
   decimalPlaces?: number;
   /**
-   * Time in milliseconds to delay the start of the number scroll
+   * Time in milliseconds to delay the start of the number scroll.
    */
   delay?: number;
   /**
-   * Provide a default value to display if to is ever undefined
+   * Provide a default value to display if to is ever undefined.
    */
   fallback?: number;
   /**
-   * Provide the starting number before number scroll animation
+   * Provide the starting number before number scroll animation.
    */
   from?: number;
   /**
-   * provide options for converting number to a localized string (such as currency)
+   * Provide options for converting number to a localized string (such as currency).
    */
   toLocaleStringProps?: [string, any];
   /**
-   * Instead of a timeout, specify the exact number of milliseconds between each scroll
+   * Instead of a timeout, specify the exact number of milliseconds between each scroll.
    */
   renderFrequency?: number;
   /**
-   * Customize the increment amount between each scroll
+   * Customize the increment amount between each scroll.
    */
   step?: number;
   /**
-   * How long it should take for the number to reach its 'to' value
+   * How long it should take for the number to reach its 'to' value.
    */
   timeout?: number;
   /**
-   * The value that it should scroll to
+   * The value that it should scroll to.
    */
   to?: number;
 }
@@ -50,8 +50,8 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   toLocaleStringProps,
   step = 1,
   timeout = 1000,
-  to = 0,
-}) => {
+  to = 0
+}): ReactElement => {
   const initialDifference = useRef(0);
   const [currentNumber, setCurrentNumber] = useState(from);
 
@@ -69,7 +69,9 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
 
     initialDifference.current = Math.abs(currentNumber - (to ?? 0)) || 1;
     setTimeout(() => runEngine(currentNumber), delay);
-  }, [to]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [delay, renderFrequency, step, timeout, to]);
 
   let newNumber = currentNumber ?? fallback;
 
