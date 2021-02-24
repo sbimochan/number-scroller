@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { NumberScroller, NumberScrollerProps } from '../src';
 
 const meta: Meta = {
-  title: 'Example',
+  title: 'Number Scroller',
   component: NumberScroller,
   parameters: {
     controls: { expanded: true },
