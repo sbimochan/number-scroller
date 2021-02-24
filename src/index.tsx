@@ -56,7 +56,7 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   const [currentNumber, setCurrentNumber] = useState(from);
 
   useEffect(() => {
-    const runEngine = currentNumber => {
+    const runEngine = (currentNumber: number) => {
       if (currentNumber !== to) {
         setTimeout(() => {
           const changedValue = getNextStepValue(currentNumber, to, step);
