@@ -47,16 +47,16 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
   timeout = 1000,
   to = 0
 }) => {
-  const isMounted = useRef<boolean>();
-  const isCounting = useRef<boolean>();
+  const _isMounted = useRef<boolean>();
+  const _isCounting = useRef<boolean>();
   const _renderFrequency = useRef<number | undefined>(renderFrequency);
-  const timer = useRef<any>(null);
+  const _timer = useRef<any>(null);
   const [currentNumber, setCurrentNumber] = useState<number>(from);
 
   const runEngine = useCallback(
     (currentNumber: number): void => {
-      if (isMounted.current && !isNaN(currentNumber) && currentNumber !== to) {
-        timer.current = setTimeout(() => {
+      if (_isMounted.current && !isNaN(currentNumber) && currentNumber !== to) {
+        _timer.current = setTimeout(() => {
           const changedValue = getNextStepValue(currentNumber, to, step);
 
           runEngine(changedValue);
@@ -64,14 +64,14 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
         }, _renderFrequency.current);
       } else {
         // indicate the counting engine has finished
-        isCounting.current = false;
+        _isCounting.current = false;
       }
     },
     [step, to]
   );
 
   useEffect(() => {
-    isMounted.current = true;
+    _isMounted.current = true;
 
     // if no custom renderFrequency calculate difference between currentNumber and new 'to' number
     if (!renderFrequency) {
@@ -79,18 +79,18 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
     }
 
     // if the previous runEngine recursion is still going, cancel it so the new one can start
-    if (isCounting.current) {
-      clearTimeout(timer.current);
+    if (_isCounting.current) {
+      clearTimeout(_timer.current);
     }
 
     // start new counting engine with or without delay
-    isCounting.current = true;
+    _isCounting.current = true;
     delay ? setTimeout(() => runEngine(currentNumber), delay) : runEngine(currentNumber);
 
     // cancel running the engine when component unmounts (prevent memory leak)
     return (): void => {
       setCurrentNumber(to);
-      isMounted.current = false;
+      _isMounted.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delay, renderFrequency, runEngine, timeout, to]);
