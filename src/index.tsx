@@ -1,7 +1,6 @@
+import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useRef, FC, ReactElement } from 'react';
-
-import { getNextStepValue, getRoundedFloatWithPrecision } from './utils';
+import { calcFrequency, getNextStepValue, getRoundedFloatWithPrecision } from './utils';
 
 export interface NumberScrollerProps {
   /**
@@ -12,10 +11,6 @@ export interface NumberScrollerProps {
    * Time in milliseconds to delay the start of the number scroll.
    */
   delay?: number;
-  /**
-   * Provide a default value to display if to is ever undefined.
-   */
-  fallback?: number;
   /**
    * Provide the starting number before number scroll animation.
    */
@@ -42,73 +37,71 @@ export interface NumberScrollerProps {
   to?: number;
 }
 
-/**
- * Number Scroller Component.
- *
- * @param {Object} Props {
- *   decimalPlaces,
- *   delay = 0,
- *   renderFrequency,
- *   fallback = 0,
- *   from = 0,
- *   toLocaleStringProps,
- *   step = 1,
- *   timeout = 1000,
- *   to = 0
- * }.
- *
- * @returns {ReactElement}
- */
 export const NumberScroller: FC<NumberScrollerProps> = ({
-  decimalPlaces,
+  decimalPlaces = 0,
   delay = 0,
   renderFrequency,
-  fallback = 0,
   from = 0,
   toLocaleStringProps,
   step = 1,
   timeout = 1000,
   to = 0
-}): ReactElement => {
-  const initialDifference = useRef(0);
-  const [currentNumber, setCurrentNumber] = useState(from);
+}) => {
+  const isMounted = useRef<boolean>();
+  const isCounting = useRef<boolean>();
+  const _renderFrequency = useRef<number | undefined>(renderFrequency);
+  const timer = useRef<any>(null);
+  const [currentNumber, setCurrentNumber] = useState<number>(from);
 
-  useEffect(() => {
-    /**
-     * Get Next Step Value and Set on State on certain Interval.
-     *
-     * @param {number} currentNumber
-     */
-    const runEngine = (currentNumber: number) => {
-      if (currentNumber !== to) {
-        setTimeout(() => {
+  const runEngine = useCallback(
+    (currentNumber: number): void => {
+      if (isMounted.current && !isNaN(currentNumber) && currentNumber !== to) {
+        timer.current = setTimeout(() => {
           const changedValue = getNextStepValue(currentNumber, to, step);
 
           runEngine(changedValue);
-          setCurrentNumber(changedValue);
-        }, renderFrequency || timeout / initialDifference.current || 1);
+          setCurrentNumber(changedValue); // update UI
+        }, _renderFrequency.current);
+      } else {
+        // indicate the counting engine has finished
+        isCounting.current = false;
       }
+    },
+    [step, to]
+  );
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    // if no custom renderFrequency calculate difference between currentNumber and new 'to' number
+    if (!renderFrequency) {
+      _renderFrequency.current = calcFrequency(currentNumber, to, timeout);
+    }
+
+    // if the previous runEngine recursion is still going, cancel it so the new one can start
+    if (isCounting.current) {
+      clearTimeout(timer.current);
+    }
+
+    // start new counting engine with or without delay
+    isCounting.current = true;
+    delay ? setTimeout(() => runEngine(currentNumber), delay) : runEngine(currentNumber);
+
+    // cancel running the engine when component unmounts (prevent memory leak)
+    return (): void => {
+      setCurrentNumber(to);
+      isMounted.current = false;
     };
-
-    initialDifference.current = Math.abs(currentNumber - (to ?? 0)) || 1;
-    setTimeout(() => runEngine(currentNumber), delay);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [delay, renderFrequency, step, timeout, to]);
+  }, [delay, renderFrequency, runEngine, timeout, to]);
 
-  let newNumber = currentNumber ?? fallback;
-
-  if (Number.isNaN(newNumber)) {
-    newNumber = 0;
-  }
+  const renderedNumber = !isNaN(currentNumber) ? currentNumber : 0;
 
   return (
     <>
       {toLocaleStringProps
-        ? newNumber.toLocaleString(...toLocaleStringProps)
-        : decimalPlaces
-        ? getRoundedFloatWithPrecision(newNumber, decimalPlaces)
-        : newNumber}
+        ? renderedNumber.toLocaleString(...toLocaleStringProps)
+        : getRoundedFloatWithPrecision(renderedNumber, decimalPlaces)}
     </>
   );
 };
@@ -116,9 +109,8 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
 NumberScroller.propTypes = {
   decimalPlaces: PropTypes.number,
   delay: PropTypes.number,
-  fallback: PropTypes.number,
   from: PropTypes.number,
-  toLocaleStringProps: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
+  toLocaleStringProps: PropTypes.any,
   renderFrequency: PropTypes.number,
   step: PropTypes.number,
   timeout: PropTypes.number,
