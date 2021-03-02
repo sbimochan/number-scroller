@@ -6,15 +6,13 @@ const meta: Meta = {
   title: 'Number Scroller',
   component: NumberScroller,
   parameters: {
-    controls: { expanded: true },
-  },
+    controls: { expanded: true }
+  }
 };
 
 export default meta;
 
-const Template: Story<NumberScrollerProps> = args => (
-  <NumberScroller {...args} />
-);
+const Template: Story<NumberScrollerProps> = args => <NumberScroller {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};
@@ -46,5 +44,5 @@ HandleStrings.args = { to: 'strings' };
 export const ToLocaleString = Template.bind({});
 ToLocaleString.args = {
   to: 100,
-  toLocaleStringProps: ['en-US', { style: 'currency', currency: 'USD' }],
+  toLocaleStringProps: ['en-US', { style: 'currency', currency: 'USD' }]
 };
