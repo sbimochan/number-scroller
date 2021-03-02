@@ -12,6 +12,11 @@ export function getNextStepValue(currentStepValue: number, toValue: number, step
   }
 }
 
-export function calcFrequency(currentNumber: number, toValue: number, timeout: number): number {
-  return timeout / Math.abs(currentNumber - toValue) || 1;
+export function calcFrequency(
+  currentNumber: number,
+  toValue: number,
+  timeout: number,
+  step: number
+): number {
+  return (timeout * step) / (Math.abs(currentNumber - toValue) || 1);
 }

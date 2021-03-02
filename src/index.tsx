@@ -75,7 +75,7 @@ export const NumberScroller: FC<NumberScrollerProps> = ({
 
     // if no custom renderFrequency calculate difference between currentNumber and new 'to' number
     if (!renderFrequency) {
-      _renderFrequency.current = calcFrequency(currentNumber, to, timeout);
+      _renderFrequency.current = calcFrequency(currentNumber, to, timeout, step);
     }
 
     // if the previous runEngine recursion is still going, cancel it so the new one can start
